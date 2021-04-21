@@ -28,10 +28,11 @@ def main():
 		Can be either the SN name (e.g. 2019yvr) or the Flows target ID.""")
 	parser.add_argument('--fileid', '-i', type=int, nargs='*', default=None,
 		help='Specific file ids within target separated by spaces: -i <ID> <ID> <ID>')
-	parser.add_argument('--filters', '-f', type=str, nargs='*', default=None, choices=all_filters,
-		help='List of space delimited filters. If not provided will use all')
+	parser.add_argument('--filters', '-f', type=str, nargs='*', default=None,
+		help='List of space delimited filters. If not provided will use all. Choose between {}'.format(all_filters))
 	parser.add_argument('--offset', '-jd', type=float, default=2458800.0)
 	parser.add_argument('--subonly', help='Only show template subtracted data points.', action='store_true')
+	parser.add_argument('--hidpi', help='double DPI fo 4k resolution', action='store_true')
 	args = parser.parse_args()
 
 	# To use when only plotting some filters
@@ -110,7 +111,8 @@ def main():
 	# Create the plot:
 	plots_interactive()
 	sns.set(style='ticks')
-	fig, ax = plt.subplots(figsize=(6.4,4), dpi=130)
+	dpi_mult = 1 if not args.subonly else 2
+	fig, ax = plt.subplots(figsize=(6.4,4), dpi=130*dpi_mult)
 	fig.subplots_adjust(top=0.95, left=0.1, bottom=0.1, right=0.97)
 
 	cps = sns.color_palette()

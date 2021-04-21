@@ -76,6 +76,7 @@ def load_image(FILENAME):
 
 	# get image and wcs solution
 	with fits.open(FILENAME, mode='readonly') as hdul:
+
 		hdr = hdul[0].header
 		origin = hdr.get('ORIGIN')
 		telescope = hdr.get('TELESCOP')
@@ -83,6 +84,8 @@ def load_image(FILENAME):
 
 		image.image = np.asarray(hdul[0].data, dtype='float64')
 		image.shape = image.image.shape
+
+		image.header = hdr
 
 		if origin == 'LCOGT':
 			image.mask = np.asarray(hdul['BPM'].data, dtype='bool')

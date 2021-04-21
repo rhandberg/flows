@@ -8,7 +8,7 @@ Tests of Photometry
 
 import pytest
 import conftest # noqa: F401
-from flows import photometry
+from flows import photometry # noqa: F401
 
 #--------------------------------------------------------------------------------------------------
 def test_import_photometry():
